@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html data-theme="light">
+    <head>
+        <title>Shuchir Jain</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://use.typekit.net/uhx4bkb.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="https://unpkg.com/@mahozad/theme-switch"></script>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    </head>
+    <body>
+        <div class="card">
+            <h1>Shuchir Jain</h1>
+            <p><i>"Dreams are illustrations...from the book your soul is writing about you." &mdash; Marsha Norman</i></p>
+            <div class="links">
+                <a href="mailto:contact@shuchir.dev">contact@shuchir.dev</a>
+                <a class="grouped-link" href="https://github.com/CoolCoderSJ" target="_blank"><ion-icon name="logo-github"></ion-icon> CoolCoderSJ</a>
+                <a href="https://discord.com/users/744921397582888991" target="_blank"><ion-icon name="logo-discord"></ion-icon></a>
+            </div>
+        </div>
+
+        <theme-switch></theme-switch>
+    </body>
+
+    <script>
+        fetch("/data.json")
+        .then(response => response.json())
+        .then(data => {
+            Array.from(data).forEach(item => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+                card.classList.add("flip");
+                card.innerHTML = `
+            <div class="flip-inner">
+                <div class="flip-front" style="background-image: url('${item.cover}');">
+                  </div>
+                  <div class="flip-back">
+                    <h1>${item.line_1}</h1>
+                    <p>${item.line_2}</p>
+                    <p>${item.line_3}</p>
+                    <br>
+                    <p>${item.line_4}</p>
+                    <div class="links">
+                        ${Object.keys(item.links).map(key => `<a href="${item.links[key]}" target="_blank">${key}</a>`).join("")}
+                    </div>
+                  </div>
+            </div>
+                `;
+                document.body.appendChild(card);
+            });
+        });
+    </script>
+</html>
